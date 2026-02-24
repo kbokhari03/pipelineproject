@@ -1,7 +1,11 @@
-
+READLIST = ["SampSRR5660030", "SampSRR5660033", "SampSRR5660044", "SampSRR5660045"]
+EXTENSTIONS = ["_1.fastq","_2.fastq"]
+INDEXPREFIX = "GenomeIndex"
+NUMBERSASSEMBLY = ["1.fq.gz","2.fq.gz"]
 rule all:
     input:
-        "FASTACDs"
+         samOutput = expand("{readlist}.sam", readlist=READLIST),
+         MappedReadsOutput = expand("{readlist}_mapped_{numbersAssembly}", readlist=READLIST, numbersAssembly=NUMBERSASSEMBLY)
         
 
 rule getGenomeAndUnzip:
@@ -32,11 +36,37 @@ rule createFastaFile:
     shell:
         "python scripts/GetCDS.py --input {input.file} --output {output.file2}"
 
+rule createGenomeIndex:
+    input:
+        file = "Genome/ncbi_dataset/data/GCF_000845245.1/GCF_000845245.1_ViralProj14559_genomic.fna"
+    output:
+        multiext("GenomeIndex",".1.bt2",".2.bt2",".3.bt2",".4.bt2",".rev.1.bt2",".rev.2.bt2")
+    shell:
+        "bowtie2-build {input.file} GenomeIndex"
+   
+rule createFullGenomeAssembly:
+    input:
+        readFile1 = "reads/{readList}_1.fastq",
+        readFile2 = "reads/{readList}_2.fastq",
+        indexFile = multiext(INDEXPREFIX,".1.bt2",".2.bt2",".3.bt2",".4.bt2",".rev.1.bt2",".rev.2.bt2")
+    output:
+        samOutput = "{readList}.sam",
+        MappedReadsOutput = ["{readList}_mapped_1.fq.gz", "{readList}_mapped_2.fq.gz"]
+    shell:
+        "bowtie2 --quiet -x {INDEXPREFIX} -1 {input.readFile1} -2 {input.readFile2} -S {output.samOutput} --al-conc-gz {wildcards.readList}_mapped_%.fq.gz"
+
+
+
+
 rule clean:
     shell:
         """
         rm -rf Genome/
 
-        rm FASTACDs
-        
+        rm GenomeIndex*
+
+        rm *.sam
+
+        rm *fq.gz
+
         """
