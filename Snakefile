@@ -1,23 +1,23 @@
 
-
-rule getGenome:
-    output:
-        file = "ncbi_dataset.zip"
-    shell:
-        "datasets download genome accession GCF_000845245.1 --include gff3,rna,cds,protein,genome,seq-report"
-
-
-rule moveDataSetIntoNewDirectory:
+rule all:
     input:
-        "ncbi_dataset.zip"
+        "Genome/Genome.zip"
+
+rule getGenomeAndUnzip:
     output:
-        folder = directory("/Genome"),
-        file = "ncbi_dataset.zip"
+        file = directory("Genome"),
+        finalCheck = "Genome/Genome.zip"
     shell:
-        "mkdir {output.directory}"
-        "mv {input} {output.directory}"
+        """
+        mkdir -p {output.file}
+        datasets download genome accession GCF_000845245.1 --include gff3,rna,cds,protein,genome,seq-report --filename {output.finalCheck}
+        
+        """
+
+
+
 
 
 rule clean:
     shell:
-        "rm ncbi_dataset.zip"
+        "rm -rf Genome/"
