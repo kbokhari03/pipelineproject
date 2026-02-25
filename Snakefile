@@ -4,7 +4,7 @@ INDEXPREFIX = "GenomeIndex"
 NUMBERSASSEMBLY = ["1.fq.gz","2.fq.gz"]
 rule all:
     input:
-         expand("{readList}_assembly/contigs.fasta", readList=READLIST)
+         expand("{readList}.fasta", readList=READLIST)
         
 
 rule getGenomeAndUnzip:
@@ -64,6 +64,13 @@ rule Spades:
     shell:
         "spades.py -k 127 -t 4 --only-assembler -1 {input.mappedRead1} -2 {input.mappedRead2} -o {output.file}"
 
+rule getLongestContig:
+    input:
+        contig = "{readList}_assembly/contigs.fasta"
+    output:
+        longestContig = "{readList}.fasta"
+    shell:
+        "python scripts/FindLongestContig.py --input {input.contig} --output {output.longestContig}"
 
 
 rule clean:
