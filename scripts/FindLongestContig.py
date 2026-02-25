@@ -27,7 +27,7 @@ def longestContigFinder(infile):
         for record in SeqIO.parse(handle,"fasta"):
             if longestContig is None or len(record.seq) > len(longestContig.seq):
                 longestContig = record
-    return longestContig.seq
+    return longestContig
 
 with open(outfile, "w") as handle:
     handle.write(str(longestContigFinder(infile)))
