@@ -4,8 +4,7 @@ INDEXPREFIX = "GenomeIndex"
 NUMBERSASSEMBLY = ["1.fq.gz","2.fq.gz"]
 rule all:
     input:
-         samOutput = expand("{readlist}.sam", readlist=READLIST),
-         MappedReadsOutput = expand("{readlist}_mapped_{numbersAssembly}", readlist=READLIST, numbersAssembly=NUMBERSASSEMBLY)
+         expand("{readList}_assembly/contigs.fasta", readList=READLIST)
         
 
 rule getGenomeAndUnzip:
@@ -55,6 +54,15 @@ rule createFullGenomeAssembly:
     shell:
         "bowtie2 --quiet -x {INDEXPREFIX} -1 {input.readFile1} -2 {input.readFile2} -S {output.samOutput} --al-conc-gz {wildcards.readList}_mapped_%.fq.gz"
 
+rule Spades:
+    input:
+        mappedRead1 = "{readList}_mapped_1.fq.gz",
+        mappedRead2 = "{readList}_mapped_2.fq.gz"
+    output:
+        file = directory("{readList}_assembly/"),
+        contigs = "{readList}_assembly/contigs.fasta"
+    shell:
+        "spades.py -k 127 -t 4 --only-assembler -1 {input.mappedRead1} -2 {input.mappedRead2} -o {output.file}"
 
 
 
