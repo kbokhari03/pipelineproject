@@ -4,7 +4,8 @@ INDEXPREFIX = "GenomeIndex"
 NUMBERSASSEMBLY = ["1.fq.gz","2.fq.gz"]
 rule all:
     input:
-         expand("{readList}.fasta", readList=READLIST)
+         file = directory("Betaherpesvirinae"),
+         finalCheck = "Betaherpesvirinae/Genome.zip"
         
 
 rule getGenomeAndUnzip:
@@ -71,6 +72,26 @@ rule getLongestContig:
         longestContig = "{readList}.fasta"
     shell:
         "python scripts/FindLongestContig.py --input {input.contig} --output {output.longestContig}"
+
+#rule have virus database output as a touch dummy file, and use that dummy file for the input of our search
+#snakemake.input for python scripts
+rule downloadSearchDB:
+    output:
+        file = directory("Betaherpesvirinae"),
+        finalCheck = "Betaherpesvirinae/Genome.zip"
+    shell:
+        """
+        mkdir -p {output.file}
+        datasets download virus genome taxon Betaherpesvirinae --refseq --include genome --filename {output.finalCheck}
+        """
+
+rule UnzipDB:
+    input:
+        file1 = "Betaherpesvirinae/Genome.zip"
+    output:
+        fastaFile = "Betaherpesvirinae/ncbi_dataset/data/genomic.fna"
+    shell:
+        "unzip {input.file} -d Betaherpesvirinae"
 
 
 rule clean:
