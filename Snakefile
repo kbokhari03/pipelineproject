@@ -4,8 +4,8 @@ INDEXPREFIX = "GenomeIndex"
 NUMBERSASSEMBLY = ["1.fq.gz","2.fq.gz"]
 rule all:
     input:
-         file = directory("Betaherpesvirinae"),
-         finalCheck = "Betaherpesvirinae/Genome.zip"
+         searchResults = expand("{readList}.txt", readList=READLIST)
+         
         
 
 rule getGenomeAndUnzip:
@@ -91,7 +91,25 @@ rule UnzipDB:
     output:
         fastaFile = "Betaherpesvirinae/ncbi_dataset/data/genomic.fna"
     shell:
-        "unzip {input.file} -d Betaherpesvirinae"
+        "unzip {input.file1} -d Betaherpesvirinae"
+
+rule CreateRefDB:
+    input:
+        fastaFile = "Betaherpesvirinae/ncbi_dataset/data/genomic.fna"
+    output:
+        database = "BetaherpesvirinaeDB/BetaherpesvirinaeDB.nsq"
+    shell:
+        "makeblastdb -in {input.fastaFile} -out BetaherpesvirinaeDB/BetaherpesvirinaeDB -title BetaherpesvirinaeDB -dbtype nucl"
+
+rule blastSearch:
+    input:
+        db = "BetaherpesvirinaeDB/BetaherpesvirinaeDB.nsq",
+        queryFile = "{readList}.fasta"
+    output:
+        searchResults = "{readList}.txt"
+    script:
+        "scripts/Search.py"
+
 
 
 rule clean:

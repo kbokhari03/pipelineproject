@@ -1,22 +1,11 @@
 import os
-import sys #import for our command line arguments
-import argparse #import for our command line argument function
 
+queryFile = snakemake.input.queryFile
 
-#function to parse command line arguments
-def check_arg(args=None):
-    parser = argparse.ArgumentParser(description="<add description of what script does>")
-    parser.add_argument("-i", "--input",
-    help="input file",
-    required=True)
-    parser.add_argument("-o", "--output",
-    help="output file",
-    required=True)
-    return parser.parse_args(args)
+searchResults = snakemake.output.searchResults
 
-#retrieve command line arguments
-arguments = check_arg(sys.argv[1:])
-infile = arguments.input
-outfile = arguments.output
+blastCommand = f"blastn -query {queryFile} -db BetaherpesvirinaeDB/BetaherpesvirinaeDB -out {searchResults} -outfmt '6 sacc pident length qstart qend sstart send bitscore evalue stitle' -max_target_seqs 5 -max_hsps 1"
+
+os.system(blastCommand)
 
 
