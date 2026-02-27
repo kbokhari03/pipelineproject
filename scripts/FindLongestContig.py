@@ -22,16 +22,14 @@ outfile = arguments.output
 
 
 def longestContigFinder(infile):
-    returnFinal = []
     longestContig = None
     with open(infile,"r") as handle:
         for record in SeqIO.parse(handle,"fasta"):
             if longestContig is None or len(record.seq) > len(longestContig.seq):
-                longestContigDescription = record.description
-                longestContigSeq = record.seq
-    returnFinal.append(longestContigDescription)
-    returnFinal.append(longestContigSeq)
-    return returnFinal
+                longestContig = record
+    return longestContig
+
+longestContig = longestContigFinder(infile)
 
 with open(outfile, "w") as handle:
-    handle.write(">" + str(longestContigFinder(infile)[0]) + "\n" + str(longestContigFinder(infile)[1]))
+    SeqIO.write(longestContig,handle,"fasta")
