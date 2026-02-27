@@ -82,7 +82,7 @@ rule downloadSearchDB:
     shell:
         """
         mkdir -p {output.file}
-        datasets download virus genome taxon Betaherpesvirinae --refseq --include genome --filename {output.finalCheck}
+        datasets download virus genome taxon Betaherpesvirinae  --include genome --filename {output.finalCheck}
         """
 
 rule UnzipDB:
