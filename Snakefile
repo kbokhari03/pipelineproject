@@ -4,7 +4,7 @@ INDEXPREFIX = "GenomeIndex"
 NUMBERSASSEMBLY = ["1.fq.gz","2.fq.gz"]
 rule all:
     input:
-         searchResults = expand("{readList}.txt", readList=READLIST)
+         "PipelineReport.txt"
          
         
 
@@ -110,6 +110,18 @@ rule blastSearch:
     script:
         "scripts/Search.py"
 
+rule PipelineReport:
+    input:
+        CodingDomainFile = "FASTACDs",
+        readBeforeList = expand("reads/{readList}_1.fastq", readList=READLIST),
+        readsAfterList = expand("{readList}_mapped_1.fq.gz", readList=READLIST),
+        searchResultsList = expand("{readList}.txt", readList=READLIST),
+    output:
+        pipeline = "PipelineReport.txt"
+    params:
+        samples = READLIST
+    script:
+        "scripts/PipelineGenerator.py"
 
 
 rule clean:
