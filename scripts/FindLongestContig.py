@@ -1,6 +1,6 @@
-from Bio import SeqIO
-import sys
-import argparse
+from Bio import SeqIO #import biopython library 
+import sys #import sys for command line args
+import argparse #import arg parse for command line args
 
 #function to parse command line arguments
 def check_arg(args=None):
@@ -15,21 +15,21 @@ def check_arg(args=None):
 
 #retrieve command line arguments
 arguments = check_arg(sys.argv[1:])
-infile = arguments.input
-outfile = arguments.output
+infile = arguments.input #set input to infile
+outfile = arguments.output #set output to outfile
 
 
 
+#Funciton to get the longest contig
+def longestContigFinder(infile): #function to get longest Contig
+    longestContig = None #Initialize variable and set it to None
+    with open(infile,"r") as handle: #Open file using with statement
+        for record in SeqIO.parse(handle,"fasta"): #Use SeqIO to parse through the record
+            if longestContig is None or len(record.seq) > len(longestContig.seq): #If statement to check if current contig is longer that current longest contig (including none)
+                longestContig = record #Set longest contig to record
+    return longestContig #Return the longest contig as SeqIO 
 
-def longestContigFinder(infile):
-    longestContig = None
-    with open(infile,"r") as handle:
-        for record in SeqIO.parse(handle,"fasta"):
-            if longestContig is None or len(record.seq) > len(longestContig.seq):
-                longestContig = record
-    return longestContig
+longestContig = longestContigFinder(infile) #call function on infile and set to variable
 
-longestContig = longestContigFinder(infile)
-
-with open(outfile, "w") as handle:
-    SeqIO.write(longestContig,handle,"fasta")
+with open(outfile, "w") as handle: #open output file
+    SeqIO.write(longestContig,handle,"fasta") #write the longest contig to it
