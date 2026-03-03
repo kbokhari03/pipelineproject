@@ -1,0 +1,53 @@
+The HCMV genome (GCF_000845245.1) has 169  CDS.
+Sample SRR5660030 had 2259287.0 read pairs before and 1562296.0 read pairs after Bowtie2 filtering
+SRR5660030:
+sacc	pident	length	qstart	qend	sstart	send	bitscore	evalue	stitle
+EF999921.1	100.000	8571	1	8571	111662	120232	15828	0.0	EF999921.1 Human herpesvirus 5 strain TB40/E clone TB40-BAC4, complete sequence
+
+KF297339.1	100.000	8571	1	8571	79621	88191	15828	0.0	KF297339.1 Human herpesvirus 5 strain TB40/E clone Lisa, complete genome
+
+KX544839.1	100.000	8571	1	8571	111638	120208	15828	0.0	KX544839.1 Human betaherpesvirus 5 isolate TB40-E_UNC, complete genome
+
+MT070140.1	100.000	8571	1	8571	79392	87962	15828	0.0	MT070140.1 UNVERIFIED: Human betaherpesvirus 5 isolate P10, complete genome
+
+MW439039.1	100.000	8571	1	8571	79020	87590	15828	0.0	MW439039.1 Human betaherpesvirus 5 strain TB40/EE, complete genome
+
+Sample SRR5660033 had 2004530.0 read pairs before and 1249472.0 read pairs after Bowtie2 filtering
+SRR5660033:
+sacc	pident	length	qstart	qend	sstart	send	bitscore	evalue	stitle
+EF999921.1	100.000	3195	1	3195	89163	85969	5901	0.0	EF999921.1 Human herpesvirus 5 strain TB40/E clone TB40-BAC4, complete sequence
+
+KF297339.1	100.000	3195	1	3195	57122	53928	5901	0.0	KF297339.1 Human herpesvirus 5 strain TB40/E clone Lisa, complete genome
+
+KX544839.1	100.000	3195	1	3195	89146	85952	5901	0.0	KX544839.1 Human betaherpesvirus 5 isolate TB40-E_UNC, complete genome
+
+MT070140.1	100.000	3195	1	3195	56893	53699	5901	0.0	MT070140.1 UNVERIFIED: Human betaherpesvirus 5 isolate P10, complete genome
+
+MW439039.1	100.000	3195	1	3195	56521	53327	5901	0.0	MW439039.1 Human betaherpesvirus 5 strain TB40/EE, complete genome
+
+Sample SRR5660044 had 2730258.0 read pairs before and 1922300.0 read pairs after Bowtie2 filtering
+SRR5660044:
+sacc	pident	length	qstart	qend	sstart	send	bitscore	evalue	stitle
+EF999921.1	99.937	11164	1	11164	178654	167491	20578	0.0	EF999921.1 Human herpesvirus 5 strain TB40/E clone TB40-BAC4, complete sequence
+
+KF297339.1	99.937	11164	1	11164	146613	135450	20578	0.0	KF297339.1 Human herpesvirus 5 strain TB40/E clone Lisa, complete genome
+
+MT070140.1	99.937	11164	1	11164	146384	135221	20578	0.0	MT070140.1 UNVERIFIED: Human betaherpesvirus 5 isolate P10, complete genome
+
+MW439039.1	99.937	11164	1	11164	146012	134849	20578	0.0	MW439039.1 Human betaherpesvirus 5 strain TB40/EE, complete genome
+
+MW439038.1	99.937	11164	1	11164	146012	134849	20578	0.0	MW439038.1 Human betaherpesvirus 5 strain TB40/EF, complete genome
+
+Sample SRR5660045 had 2476889.0 read pairs before and 1274769.0 read pairs after Bowtie2 filtering
+SRR5660045:
+sacc	pident	length	qstart	qend	sstart	send	bitscore	evalue	stitle
+EF999921.1	100.000	4656	1	4656	85943	90598	8599	0.0	EF999921.1 Human herpesvirus 5 strain TB40/E clone TB40-BAC4, complete sequence
+
+KF297339.1	100.000	4656	1	4656	53902	58557	8599	0.0	KF297339.1 Human herpesvirus 5 strain TB40/E clone Lisa, complete genome
+
+KX544839.1	100.000	4656	1	4656	85926	90581	8599	0.0	KX544839.1 Human betaherpesvirus 5 isolate TB40-E_UNC, complete genome
+
+MT070140.1	100.000	4656	1	4656	53673	58328	8599	0.0	MT070140.1 UNVERIFIED: Human betaherpesvirus 5 isolate P10, complete genome
+
+MW439039.1	100.000	4656	1	4656	53301	57956	8599	0.0	MW439039.1 Human betaherpesvirus 5 strain TB40/EE, complete genome
+
